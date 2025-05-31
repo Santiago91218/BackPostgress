@@ -32,7 +32,6 @@ export const getCategoriaByIdController = async (
     if (!categoria) {
       res.status(404).json({ message: "Categoria no encontrada" });
     }
-
     res.json(categoria);
   } catch (error) {
     console.error(error);

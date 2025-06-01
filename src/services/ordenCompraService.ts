@@ -1,7 +1,5 @@
-import { PrismaClient } from "../generated/prisma";
+import prisma from "../database/prismaClient"
 import { IOrdenCompra } from "../models/IOrdenCompra";
-
-const prisma = new PrismaClient();
 
 export const getAllOrdenesCompraService = async () => {
   return prisma.ordenCompra.findMany({

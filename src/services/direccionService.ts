@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../database/prismaClient"
 import { IDireccion } from "../models/IDireccion";
-
-const prisma = new PrismaClient();
 
 export const getAllDireccionesService = async (): Promise<IDireccion[]> => {
   const direcciones = await prisma.direccion.findMany({

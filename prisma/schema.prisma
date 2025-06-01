@@ -141,10 +141,10 @@ model Usuario {
   id          Int                @id @default(autoincrement())
   disponible  Boolean            @default(true)
   nombre      String?
-  contrasenia String?            @map("contrasenia")
+  contrasenia String           @map("contrasenia")
   rol         TipoUsuario?
-  email       String?
-  dni         Int
+  email       String             @unique  
+  dni         Int?
 
   usuarioDirecciones UsuarioDireccion[]
   ordenesCompra      OrdenCompra[]  // Relación inversa para OrdenCompra.usuario

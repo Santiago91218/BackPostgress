@@ -12,6 +12,7 @@ import preciosRoutes from "./routes/precio.routes";
 import productosRoutes from "./routes/producto.routes";
 import usuariosRoutes from "./routes/usuario.routes";
 import direccionesRoutes from "./routes/direccion.routes";
+import authRoutes from "./routes/auth.routes"
 
 dotenv.config();
 
@@ -29,5 +30,6 @@ app.use("/precios", preciosRoutes);
 app.use("/productos", productosRoutes);
 app.use("/usuarios", usuariosRoutes);
 app.use("/direcciones", direccionesRoutes);
+app.use("/auth", authRoutes);
 
 export default app;

@@ -3,10 +3,10 @@ import { Direccion, TipoUsuario } from "../generated/prisma";
 export interface IUsuario {
   id: number;
   disponible?: boolean;
-  nombre: string;
+  nombre?: string | null;
   contrasenia: string;
-  rol?: TipoUsuario;
+  rol?: TipoUsuario | null;
   email: string;
-  dni: number;
+  dni?: number | null;
   direcciones?: Direccion[];
 }

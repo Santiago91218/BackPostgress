@@ -1,7 +1,5 @@
-import { PrismaClient } from "../generated/prisma";
+import prisma from "../database/prismaClient"
 import { IImagen } from "../models/IImagen";
-
-const prisma = new PrismaClient();
 
 export const getAllImagenesService = async () => {
   return prisma.imagen.findMany({

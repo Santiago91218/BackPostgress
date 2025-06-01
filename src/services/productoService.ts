@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from "../database/prismaClient"
 import { IProducto } from '../models/IProducto';
-
-const prisma = new PrismaClient();
 
 export const getAllProductosService = async () => {
   return await prisma.producto.findMany({

@@ -26,6 +26,7 @@ export const getUsuarioByIdController = async (
 
     if (!usuario) {
       res.status(404).json({ message: "Usuario no encontrado" });
+      return;
     }
 
     res.json(usuario);

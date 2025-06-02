@@ -1,5 +1,6 @@
 import prisma from "../database/prismaClient"
 import { IUsuario } from "../models/IUsuario";
+import { hashContrasenia } from "./passwordService";
 
 export const getAllUsuariosService = async () => {
   const usuarios = await prisma.usuario.findMany({
@@ -39,11 +40,14 @@ export const getUsuarioByIdService = async (id: number) => {
 };
 
 export const postUsuarioService = async (usuario: IUsuario) => {
-  const { direcciones, ...restoUsuario } = usuario;
+  const { direcciones, contrasenia, ...restoUsuario } = usuario;
+
+  const hashedContrasenia = await hashContrasenia(contrasenia)
 
   const nuevoUsuario = await prisma.usuario.create({
     data: {
       ...restoUsuario,
+      contrasenia: hashedContrasenia,
       usuarioDirecciones: direcciones
         ? {
             create: direcciones.map((direccion) => ({
@@ -70,8 +74,12 @@ export const postUsuarioService = async (usuario: IUsuario) => {
 };
 
 export const putUsuarioService = async (id: number, usuario: IUsuario) => {
-  const { direcciones, ...restoUsuario } = usuario;
+  const { direcciones, contrasenia, ...restoUsuario } = usuario;
 
+  const dataToUpdate: any={
+    ...restoUsuario,
+    ...(contrasenia && {contrasenia: await hashContrasenia(contrasenia)})
+  }
   // Borrar relaciones previas si se mandan nuevas direcciones
   if (direcciones) {
     await prisma.usuarioDireccion.deleteMany({
@@ -84,7 +92,7 @@ export const putUsuarioService = async (id: number, usuario: IUsuario) => {
   const updatedUsuario = await prisma.usuario.update({
     where: { id },
     data: {
-      ...restoUsuario,
+      ...dataToUpdate,
       usuarioDirecciones: direcciones
         ? {
             create: direcciones.map((direccion) => ({
